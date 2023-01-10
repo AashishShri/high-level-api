@@ -32,3 +32,4 @@ export class Transactions {
 }
 
 export const TransactionsSchema = SchemaFactory.createForClass(Transactions);
+TransactionsSchema.index({ walletId: 1 });

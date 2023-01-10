@@ -184,6 +184,9 @@ export class WalletService {
   }
 
   async listTransactions(data: any): Promise<any> {
+    const page = data?.skip * 1 || 1;
+    const limit = data.limit * 1 || 0;
+    const skip = (page - 1) * limit;
     const transResp = await this.transactionModel
       .find(
         {
@@ -191,9 +194,12 @@ export class WalletService {
         },
         { createdAt: 0, updatedAt: 0, __v: 0 },
       )
-      .sort({ amount: 1, date: 1 }) // --- 1 for asc and -1 for desc
-      .skip(data.skip ? data.skip : 0)
-      .limit(data.limit ? data.limit : 0);
+      .sort({ date: -1 })
+      // .sort({ amount: 1, date: 1 }) // --- 1 for asc and -1 for desc
+      .skip(skip)
+      .limit(limit);
+    // .skip(data.skip ? data.skip : 0)
+    // .limit(data.limit ? data.limit : 0);
     return transResp;
   }
 
@@ -228,6 +234,4 @@ export class WalletService {
     ]);
     return walletResp;
   }
-
- 
 }
