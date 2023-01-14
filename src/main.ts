@@ -19,14 +19,11 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('apiDoc', app, document, {
-    // uiConfig: {
-    //   docExpansion: 'none',
-    // },
     swaggerOptions: {
       docExpansion: 'none',
     },
   });
 
-  await app.listen(3000);
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
